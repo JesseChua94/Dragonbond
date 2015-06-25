@@ -1,0 +1,17 @@
+Try and do responsive table for adding and editing
+else:
+	have add button on top. Adding leaves pop up window open.
+
+how to edit entries?
+
+
+Adding workout tab (card format)
+-seriously make table responsive.
+-
+	-add button on top
+	-week number
+	-focus
+	-exercises
+		-reps/sets
+
+*consider making a weeks/workout collection instead of just weeks*

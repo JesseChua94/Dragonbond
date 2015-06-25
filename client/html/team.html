@@ -1,0 +1,51 @@
+<template name="team">
+
+	<div class="container" id="weeks">
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    {{setWeek}} <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		  	{{#each weeks}}
+		  		<li>{{ week}}</li>
+		  	{{/each}}
+		  </ul>
+		</div>
+	</div>
+
+<!-- 	temporary input to add weeks
+ -->	<div class="container">
+		<form class="addWeek">
+			<input name="newWeek" type="text">
+			<input type="submit" class="enter" value="Enter">
+		</form>
+				<button id="check">check</button>
+
+		<button id="delete">delete</button>
+	</div>
+
+
+
+	<div class="container" id="team">
+		<table  id="team" class="table table-bordered table-hover table-striped ">
+			<thead>
+				<tr>
+					{{#each headers}}
+					<th>{{heading}}</th>
+					{{/each}}
+				</tr>
+			</thead>
+			<tbody>
+				{{#each member}}
+				<tr>
+					<td><input name="name" class="data" type="text" value="{{name}}"></td>
+					<td><input name="weight" class="data" type="text" value="{{weight}}"></td>
+					<td><input name="email" class="data" type="text" value="{{email}}"></td>
+					<td><input name="phone" class="data" type="text" value="{{phone}}"></td>
+				</tr>
+				{{/each}}
+			</tbody>
+
+		</table>
+	</div>
+</template>

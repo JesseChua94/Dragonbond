@@ -1,0 +1,10 @@
+div #weeks {
+	margin-bottom: 1%;
+}
+
+input.data {
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
