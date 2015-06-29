@@ -19,15 +19,21 @@ if (Meteor.isServer) {
 		'addWeek' : function(week) {
 			Weeks.insert({week: week});
 		},
-		'check' : function() {
-			Members.find({}).count();
-		},
-		'delete' : function() {
-			Weeks.remove({});
+		'delete' : function(id) {
+			var deleteID = {};
+			deleteID['_id'] = id;
+			Members.remove(deleteID);
 		},
 		'update' : function(id, value, key) {
-			Members.update(id, {$set: {key: value}});
-
+			var update = {};
+			update[key] = value;
+			Members.update(id, {$set: update});
+		},
+		//this is a testing method
+		'getObject' : function(id) {
+			var object = {};
+			object['_id'] = id;
+			console.log(Members.find(object).fetch());
 		}
 	});
 }

@@ -1,16 +1,19 @@
 <template name="team">
 
-	<div class="container" id="weeks">
+	<div class="container">
 		<div class="btn-group">
 		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		    {{setWeek}} <span class="caret"></span>
 		  </button>
-		  <ul class="dropdown-menu">
+		  <ul class="dropdown-menu week">
 		  	{{#each weeks}}
 		  		<li>{{ week}}</li>
 		  	{{/each}}
 		  </ul>
 		</div>
+		<button type="button" class="add btn btn-default">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
 	</div>
 
 <!-- 	temporary input to add weeks
@@ -19,12 +22,10 @@
 			<input name="newWeek" type="text">
 			<input type="submit" class="enter" value="Enter">
 		</form>
-				<button id="check">check</button>
-
-		<button id="delete">delete</button>
 	</div>
-
-
+	{{#if show}}
+		{{> warning}}
+	{{/if}}
 
 	<div class="container" id="team">
 		<table  id="team" class="table table-bordered table-hover table-striped ">
@@ -33,6 +34,7 @@
 					{{#each headers}}
 					<th>{{heading}}</th>
 					{{/each}}
+					<th> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -42,10 +44,28 @@
 					<td><input name="weight" class="data" type="text" value="{{weight}}"></td>
 					<td><input name="email" class="data" type="text" value="{{email}}"></td>
 					<td><input name="phone" class="data" type="text" value="{{phone}}"></td>
+					<td>
+						<button type="button" class="trash btn btn-default" aria-label="Left Align">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</button>
+					</td>
 				</tr>
 				{{/each}}
 			</tbody>
 
 		</table>
 	</div>
+</template>
+
+
+<template name="warning">
+	<div class="container">
+		<div class="alert alert-warning alert-dismissible" role="alert">
+	 		 <button type="button" class="resetAlert close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  		Are you sure you want to delete?
+	  		<button type="button" class="resetAlert yes" data-dismiss="alert" aria-label="Close"> Yes</button>
+	  		<button type="button" class="resetAlert no" data-dismiss="alert" aria-label="Close"> No</button>
+		</div>
+	</div>
+
 </template>
