@@ -8,3 +8,7 @@ input.data {
     border: none;
     outline: none;
   }
+
+ul.week li {
+	cursor: default;
+}

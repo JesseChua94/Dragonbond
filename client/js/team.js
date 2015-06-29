@@ -20,7 +20,13 @@ if (Meteor.isClient) {
 				return Session.get('warning');
 			},
 			'setWeek' : function() {
-				return Session.get('activeWeek');
+				var weekID = Session.get('activeWeek');
+				if (weekID == null) {
+					var week = Weeks.findOne({week : 'Week 1'}).week;
+					return week;
+				};
+				var week = Weeks.findOne({_id: weekID}).week;
+				return week;
 			}
 		});
 

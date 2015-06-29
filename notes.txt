@@ -1,12 +1,4 @@
-Try and do responsive table for adding and editing
-else:
-	have add button on top. Adding leaves pop up window open.
 
-how to edit entries?
-
-
-Adding workout tab (card format)
--seriously make table responsive.
 -
 	-add button on top
 	-week number
@@ -15,3 +7,19 @@ Adding workout tab (card format)
 		-reps/sets
 
 *consider making a weeks/workout collection instead of just weeks*
+
+workout page
+-make workout collection
+this collection will be used separately to display and make workouts. Separate purpose from showing member specific weights
+	-week
+	-workout
+	-reps
+	-notes
+
+When displaying weekly workout weights for specific members, take each workout and add to table as empty. Backend format json for each workout to be added to the key 'week 1' or something along those lines.
+
+Home page used for displaying the current week's layout and maybe schedule?
+
+Also think about adding a schedule for trainers
+	-When they can make it
+	-Pressing for attendance or not
