@@ -32,7 +32,7 @@ if (Meteor.isClient) {
 
 	Template.team.events({
 			'click .add' : function() {
-				Meteor.call('insert', "", "", "", "");
+				Meteor.call('insertMember', "", "", "", "");
 			},
 			'submit .addWeek' : function() {
 				event.preventDefault();
@@ -85,11 +85,6 @@ if (Meteor.isClient) {
 			Meteor.call("delete", deleteID);
 
 		}
-
-
 	})
-
-
-
 };
 

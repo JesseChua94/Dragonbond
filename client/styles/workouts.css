@@ -1,0 +1,29 @@
+.workoutData {
+	background: transparent;
+	cursor: default;
+	border: none;
+	outline: none;
+	width: 100%;
+}
+
+.addWorkout {
+	margin-bottom: 5px;
+}
+
+h3 {
+	margin-left: -3px;
+}
+
+.trashWorkout {
+	padding: 2px;
+}
+
+
+textarea  {
+	resize: none;
+	height: 100%;
+}
+
+.foot {
+  	height: 150px;
+}

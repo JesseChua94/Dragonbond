@@ -1,7 +1,61 @@
 <template name="workouts">
 
+	{{#if show}}
+			{{> warningWorkout}}
+	{{/if}}
+
+	<div class="container">
+		<button type="button" class="addWorkout btn btn-default">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+		
+	</div>
 	
 
+	<div class="container">
 
+		<div class="row">
+			{{#each workout}}
+				<div class="col-xs-12 col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="row">
+								<h3 class="col-xs-12 col-md-11 panel-title">
+									<input class="workoutData" name="title" type="text" value="{{title}}">
+								</h3>
+								<button type="button" class=" col-md-1 trashWorkout btn btn-default">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+						<!-- should make dynamic and allow adding exercises when I have spare time -->
+						<div class="panel-body">
+					    	<input class="workoutData" name="exerciseOne" type="text" value="{{exerciseOne}}">
+					    	<input class="workoutData" name="exerciseTwo" type="text" value="{{exerciseTwo}}">
+					    	<input class="workoutData" name="exerciseThree" type="text" value="{{exerciseThree}}">
+					    	<input class="workoutData" name="exerciseFour" type="text" value="{{exerciseFour}}">
+					    	<input class="workoutData" name="exerciseFive" type="text" value="{{exerciseFive}}">
+						</div>
+						<div class="foot panel-footer">
+							<textarea class="workoutData" name="notes" type="text" value="{{notes}}"></textarea>
+						</div>
+					</div>
+				</div>
+
+			{{/each}}
+		</div>
+
+	</div>
+</template>
+
+<template name="warningWorkout">
+	<div class="container">
+		<div class="alert alert-warning alert-dismissible" role="alert">
+	 		 <button type="button" class="resetAlert close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  		Are you sure you want to delete?
+	  		<button type="button" class="resetAlert yes" data-dismiss="alert" aria-label="Close"> Yes</button>
+	  		<button type="button" class="resetAlert no" data-dismiss="alert" aria-label="Close"> No</button>
+		</div>
+	</div>
 
 </template>

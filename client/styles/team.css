@@ -7,6 +7,7 @@ input.data {
     cursor: pointer;
     border: none;
     outline: none;
+    width: 100%;
   }
 
 ul.week li {
