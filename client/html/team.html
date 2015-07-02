@@ -42,7 +42,7 @@
 
 				<tr>
 					{{> member}}
-					
+
 					<td>
 						<button type="button" class="trash btn btn-default" aria-label="Left Align">
 							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -71,8 +71,8 @@
 </template>
 
 <template name="member">
-	{{#each memberInfoGetter this.member}}
+	{{#each memberInfoGetter this}}
 
-		<td><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
+		<td id="{{id}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
 	{{/each}}
 </template>

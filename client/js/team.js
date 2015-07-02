@@ -52,8 +52,9 @@ if (Meteor.isClient) {
 		  	},
 		  	//this is a testing method
 		  	'click td' : function() {
+		  		console.log(this.id);
 		  		console.log(this._id);
-		  		Meteor.call('getObject', this._id);
+		  		this.id == null? Meteor.call('getObject', this._id) : Meteor.call('getObject', this.id);
 		  	},
 		    //working on the deletion of information
 		  	'click .trash' : function() {
@@ -90,8 +91,9 @@ if (Meteor.isClient) {
 	//Allows to dynamically add attributes to the table
 	Handlebars.registerHelper('memberInfoGetter', function(obj) {
 		result =[];
-		for (var key in obj) {
-			result.push({name: key, value: obj[key]});
+		var mObj = obj.member;
+		for (var key in mObj) {
+			result.push({id: obj._id, name: key, value: mObj[key]});
 		};
 		return result;
 	});
