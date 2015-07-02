@@ -38,17 +38,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				{{#each member}}
+				{{#each members}}
+
 				<tr>
-					<td><input name="name" class="data" type="text" value="{{name}}"></td>
-					<td><input name="weight" class="data" type="text" value="{{weight}}"></td>
-					<td><input name="email" class="data" type="text" value="{{email}}"></td>
-					<td><input name="phone" class="data" type="text" value="{{phone}}"></td>
+					{{> member}}
+					
 					<td>
 						<button type="button" class="trash btn btn-default" aria-label="Left Align">
 							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</button>
 					</td>
+
 				</tr>
 				{{/each}}
 			</tbody>
@@ -68,4 +68,11 @@
 		</div>
 	</div>
 
+</template>
+
+<template name="member">
+	{{#each memberInfoGetter this.member}}
+
+		<td><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
+	{{/each}}
 </template>

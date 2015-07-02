@@ -4,12 +4,13 @@ if (Meteor.isClient) {
 	Meteor.subscribe('members');
 
 	Template.team.helpers({
-			'member' : function() {
-				return Members.find({});
+			'members' : function() {
+				return Members.find({member: {$exists: true}}).fetch();
 			},
 			'weeks' : function() {
 				return  Weeks.find({});
 			},
+			//this should not be hardcoded
 			'headers' : function () {
 				array = ['name', 'weight', 'email', 'phone'];
 				return _.map(array, function(value) {
@@ -32,7 +33,7 @@ if (Meteor.isClient) {
 
 	Template.team.events({
 			'click .add' : function() {
-				Meteor.call('insertMember', "", "", "", "");
+				Meteor.call('insertMember', " ", " ", " ", " ");
 			},
 			'submit .addWeek' : function() {
 				event.preventDefault();
@@ -85,6 +86,14 @@ if (Meteor.isClient) {
 			Meteor.call("delete", deleteID);
 
 		}
-	})
+	});
+	//Allows to dynamically add attributes to the table
+	Handlebars.registerHelper('memberInfoGetter', function(obj) {
+		result =[];
+		for (var key in obj) {
+			result.push({name: key, value: obj[key]});
+		};
+		return result;
+	});
 };
 

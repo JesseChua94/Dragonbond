@@ -12,11 +12,11 @@ if (Meteor.isServer) {
 
 	Meteor.methods({
 		'insertMember' : function(newName, newWeight, newEmail, newPhone) {
-			Members.insert({
+			Members.insert({member: { 
 				name: newName,
 				weight: newWeight,
 				email: newEmail,
-				phone: newPhone
+				phone: newPhone }
 			});
 		},
 		'addWeek' : function(week) {
