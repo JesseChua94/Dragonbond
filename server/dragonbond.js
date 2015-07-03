@@ -43,24 +43,14 @@ if (Meteor.isServer) {
 			object['_id'] = id;
 			console.log(Members.find(object).fetch());
 		},
-/*		Should make this rest parameters when I have time */
 		'insertWorkout' : function(
-			newTitle, 
-			newExerciseOne,
-			newExerciseTwo, 
-			newExerciseThree, 
-			newExerciseFour, 
-			newExerciseFive, 
-			newNotes) {
-			Workouts.insert({   //somehow add week number here
+			newTitle, newWeek) {
+			Workouts.insert({ 
+				week: newWeek,
+				exercises: {},
 				title: newTitle,
-				exercises: {exerciseOne : newExerciseOne,
-							exerciseTwo : newExerciseTwo,
-							exerciseThree : newExerciseThree,
-							exerciseFour : newExerciseFour,
-							exerciseFive : newExerciseFive },
-				notes: newNotes
-			});
+				notes: ""});
+
 		},
 		'updateWorkout' : function(id, value, key) {
 			var update = {};

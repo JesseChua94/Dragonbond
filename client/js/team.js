@@ -89,7 +89,7 @@ if (Meteor.isClient) {
 		}
 	});
 	//Allows to dynamically add attributes to the table
-	Handlebars.registerHelper('InfoGetter', function(mObj, objID) {
+	Handlebars.registerHelper('infoGetter', function(mObj, objID) {
 		result =[];
 		for (var key in mObj) {
 			result.push({id: objID, name: key, value: mObj[key]});

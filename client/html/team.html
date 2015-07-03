@@ -75,14 +75,14 @@
 </template>
 
 <template name="member">
-	{{#each InfoGetter this.member.info this._id}}
+	{{#each infoGetter this.member.info this._id}}
 
 		<td id="{{id}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
 	{{/each}}
 </template>
 
 <template name="weights">
-	{{#each InfoGetter this.member.weights.Week2 this._id}}
+	{{#each infoGetter this.member.weights.Week2 this._id}}
 
 	<td id="{{id}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
 	{{/each}}

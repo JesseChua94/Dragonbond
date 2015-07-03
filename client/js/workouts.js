@@ -12,16 +12,12 @@ if (Meteor.isClient) {
 
 	Template.workouts.events({
 		'click .addWorkout' : function() {
+			console.log("added");
 			var weekCount = Workouts.find({}).count() + 1;
 			Meteor.call("insertWorkout",
-				'Week ' + weekCount + ' - ', 
-				'', 
-				'',
-				'',
-				'',
-				'',
-				'');
+				'Week ' + weekCount + ' - ', 'Week ' + weekCount);
 		},
+		//testing function
 		'click .workoutName, click .workoutWeek, click .workoutReps' : function() {
 			console.log(this._id);
 		},
