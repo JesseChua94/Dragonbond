@@ -22,7 +22,7 @@ if (Meteor.isClient) {
 				'',
 				'');
 		},
-		'click .workoutData' : function() {
+		'click .workoutName, click .workoutWeek, click .workoutReps' : function() {
 			console.log(this._id);
 		},
 		'click .trashWorkout' : function() {
@@ -30,7 +30,7 @@ if (Meteor.isClient) {
 		  		Session.set('deleteID', this._id);
 		},
 		//this is repeated in team.js. Should change later to one js file.
-		'keydown input.workoutData': function(event) {
+		'keydown .workoutName, keydown .workoutReps, keydown .workoutWeek': function(event) {
 			    // ESC or ENTER
 			    if (event.which === 27 || event.which === 13) {
 			      event.preventDefault();
@@ -38,7 +38,7 @@ if (Meteor.isClient) {
 		    	}
 		},
 		//this is also repeated
-		'keyup .workoutData': _.throttle(function(event) {
+		'keyup .workoutName, keyup .workoutReps, keyup .workoutWeek': _.throttle(function(event) {
 				value = event.target.value;
 				name = event.target.name;
 			  	Meteor.call("updateWorkout", this._id, value, name);

@@ -33,7 +33,7 @@ if (Meteor.isClient) {
 
 	Template.team.events({
 			'click .add' : function() {
-				Meteor.call('insertMember', " ", " ", " ", " ");
+				Meteor.call('insertMember', "", "", "", "");
 			},
 			'submit .addWeek' : function() {
 				event.preventDefault();
@@ -52,8 +52,8 @@ if (Meteor.isClient) {
 		  	},
 		  	//this is a testing method
 		  	'click td' : function() {
-		  		console.log(this.id);
 		  		console.log(this._id);
+		  		console.log(this.id);
 		  		this.id == null? Meteor.call('getObject', this._id) : Meteor.call('getObject', this.id);
 		  	},
 		    //working on the deletion of information
@@ -73,7 +73,7 @@ if (Meteor.isClient) {
 			'keyup input.data': _.throttle(function(event) {
 				value = event.target.value;
 				name = event.target.name;
-			  	Meteor.call("update", this._id, value, name);
+			  	Meteor.call("update", this.id, value, name);
 			}, 300)
 		});
 
@@ -89,11 +89,10 @@ if (Meteor.isClient) {
 		}
 	});
 	//Allows to dynamically add attributes to the table
-	Handlebars.registerHelper('memberInfoGetter', function(obj) {
+	Handlebars.registerHelper('InfoGetter', function(mObj, objID) {
 		result =[];
-		var mObj = obj.member;
 		for (var key in mObj) {
-			result.push({id: obj._id, name: key, value: mObj[key]});
+			result.push({id: objID, name: key, value: mObj[key]});
 		};
 		return result;
 	});

@@ -1,10 +1,19 @@
-.workoutData {
+.workoutWeek, .workoutName, .workoutReps {
 	background: transparent;
 	cursor: default;
 	border: none;
 	outline: none;
+}
+
+.workoutWeek {
 	width: 100%;
 }
+
+.workoutName, .workoutReps {
+	width: 48%;
+	margin-right: 5px;
+}
+
 
 .addWorkout {
 	margin-bottom: 5px;

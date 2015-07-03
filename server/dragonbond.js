@@ -12,11 +12,16 @@ if (Meteor.isServer) {
 
 	Meteor.methods({
 		'insertMember' : function(newName, newWeight, newEmail, newPhone) {
-			Members.insert({member: { 
+			Members.insert({member: { info: { 
 				name: newName,
 				weight: newWeight,
 				email: newEmail,
-				phone: newPhone }
+				phone: newPhone },
+				weights: {
+					'Week1': {'Pull ups': "", 'Bench': ""},
+					'Week2': {'Pull ups': "yay", 'Bench': "you did it!"}
+				}
+			}
 			});
 		},
 		'addWeek' : function(week) {
@@ -29,7 +34,7 @@ if (Meteor.isServer) {
 		},
 		'update' : function(id, value, key) {
 			var update = {};
-			update[key] = value;
+			update['member.' + key] = value;
 			Members.update(id, {$set: update});
 		},
 		//this is a testing method
@@ -47,13 +52,13 @@ if (Meteor.isServer) {
 			newExerciseFour, 
 			newExerciseFive, 
 			newNotes) {
-			Workouts.insert({
+			Workouts.insert({   //somehow add week number here
 				title: newTitle,
-				exerciseOne : newExerciseOne,
-				exerciseTwo : newExerciseTwo,
-				exerciseThree : newExerciseThree,
-				exerciseFour : newExerciseFour,
-				exerciseFive : newExerciseFive,
+				exercises: {exerciseOne : newExerciseOne,
+							exerciseTwo : newExerciseTwo,
+							exerciseThree : newExerciseThree,
+							exerciseFour : newExerciseFour,
+							exerciseFive : newExerciseFive },
 				notes: newNotes
 			});
 		},

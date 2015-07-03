@@ -4,7 +4,7 @@ div #weeks {
 
 input.data {
     background: transparent;
-    cursor: pointer;
+    cursor: default;
     border: none;
     outline: none;
     width: 100%;
