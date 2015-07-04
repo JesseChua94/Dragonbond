@@ -47,15 +47,16 @@ if (Meteor.isServer) {
 			newTitle, newWeek) {
 			Workouts.insert({ 
 				week: newWeek,
-				exercises: {},
+				exercises: {exercise: "", exercise: "", exercise: "", exercise: "", exercise: ""},
 				title: newTitle,
 				notes: ""});
-
 		},
 		'updateWorkout' : function(id, value, key) {
 			var update = {};
 			update[key] = value;
 			Workouts.update(id, {$set: update});
+
+
 		},
 		'deleteWorkout' : function(id) {
 			var deleteID = {};

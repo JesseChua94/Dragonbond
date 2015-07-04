@@ -15,7 +15,7 @@ if (Meteor.isClient) {
 			console.log("added");
 			var weekCount = Workouts.find({}).count() + 1;
 			Meteor.call("insertWorkout",
-				'Week ' + weekCount + ' - ', 'Week ' + weekCount);
+				'Week ' + weekCount + ' - ', weekCount);
 		},
 		//testing function
 		'click .workoutName, click .workoutWeek, click .workoutReps' : function() {

@@ -21,7 +21,7 @@
 						<div class="panel-heading">
 							<div class="row">
 								<h3 class="col-xs-12 col-md-11 panel-title">
-									Week <input class="workoutWeek" type="number" min="1" max="99">
+									Week <input class="workoutWeek" type="number" min="1" max="99" name="week" value="{{this.week}}">
 									<input class="workoutType" name="title" type="text" value="{{this.title}}">  
 
 								</h3>
@@ -30,7 +30,6 @@
 								</button>
 							</div>
 						</div>
-						<!-- should make dynamic and allow adding exercises when I have spare time -->
 						<div class="panel-body">
 					    	<input class="workoutName" name="exerciseOne" type="text" value="{{exerciseOne}}"><input class="workoutReps" name="exerciseOne" type="text" value="{{exerciseOne}}">
 						</div>
