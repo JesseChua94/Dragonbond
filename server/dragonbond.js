@@ -1,7 +1,4 @@
 if (Meteor.isServer) {
-	Meteor.publish("weeks", function() {
-		return Weeks.find({});
-	});
 	Meteor.publish("members", function() {
 		return Members.find({});
 	});

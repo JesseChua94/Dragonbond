@@ -1,14 +1,9 @@
 if (Meteor.isClient) {
-	Meteor.subscribe('weeks');
-
 	Meteor.subscribe('members');
 
 	Template.team.helpers({
 			'members' : function() {
 				return Members.find({member: {$exists: true}}).fetch();
-			},
-			'weeks' : function() {
-				return  Weeks.find({});
 			},
 			//this should not be hardcoded
 			'headers' : function () {
