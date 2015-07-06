@@ -1,28 +1,39 @@
 <template name="workouts">
 
-	{{#if show}}
+	<div class="container-fluid">
+		{{#if show}}
 			{{> warningWorkout}}
-	{{/if}}
+		{{/if}}
 
-	<div class="container">
-		<button type="button" class="addWorkout btn btn-default">
+		{{#if showAlert}}
+			{{> alertWorkout}}
+		{{/if}}
+
+		<button type="button" class="addWorkout btn btn-default pull-left">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-		</button>
-		
-	</div>
-	
+		</button>	
 
-	<div class="container">
+		<button type="button" class="deleteAll btn btn-default">
+			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		</button>
+
+		<nav>
+		  	<ul class="pager">
+		    	<li class="prev pull-left"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
+		    	<h3 class="monthLabel">{{showMonth}}</h3>
+		    	<li class="nex pull-right"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
+		  	</ul>
+		</nav>
 
 		<div class="row">
 			{{#each workout}}
-				<div class="col-xs-12 col-md-4">
+				<div class="col-xs-12 col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="row">
 								<h3 class="col-xs-12 col-md-11 panel-title">
-									Week <input class="workoutWeek" type="number" min="1" max="99" name="week" value="{{this.week}}">
-									<input class="workoutType" name="title" type="text" value="{{this.title}}">  
+									Week {{this.month.week}}
+									<input class="workoutType" name="title" type="text" value="{{this.month.title}}">  
 
 								</h3>
 								<button type="button" class=" col-md-1 trashWorkout btn btn-default">
@@ -31,10 +42,10 @@
 							</div>
 						</div>
 						<div class="panel-body">
-					    	<input class="workoutName" name="exerciseOne" type="text" value="{{exerciseOne}}"><input class="workoutReps" name="exerciseOne" type="text" value="{{exerciseOne}}">
+					    	{{> singleWorkout}}
 						</div>
 						<div class="foot panel-footer">
-							<textarea class="workoutWeek" name="notes" type="text" value="{{this.notes}}"></textarea>
+							<textarea class="workoutWeek" name="notes" type="text" value="{{this.month.notes}}"></textarea>
 						</div>
 					</div>
 				</div>
@@ -46,19 +57,23 @@
 </template>
 
 <template name="warningWorkout">
-	<div class="container">
 		<div class="alert alert-warning alert-dismissible" role="alert">
 	 		 <button type="button" class="resetAlert close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	  		Are you sure you want to delete?
 	  		<button type="button" class="resetAlert yes" data-dismiss="alert" aria-label="Close"> Yes</button>
 	  		<button type="button" class="resetAlert no" data-dismiss="alert" aria-label="Close"> No</button>
 		</div>
+</template>
+
+<template name="singleWorkout">
+	{{#each infoGetter this.month.exercises this._id}}
+		<input id="{{id}}" class="workoutName" name="{{name}}" type="text" value="{{name}}"><input id="{{id}}" class="workoutReps" name="value" type="text" value="{{value}}">
+	{{/each}}
+</template>
+
+<template name="alertWorkout">
+	<div class="dismiss alert alert-danger alert-dismissible" role="alert">
+	  <strong>Warning!</strong> Too many weeks!
 	</div>
 
 </template>
-
-<!-- <template name="workout">
-
-	{{#each infoGetter this.}}
-	<input class="workoutName" name="exerciseOne" type="text" value="{{exerciseOne}}"><input class="workoutReps" name="exerciseOne" type="text" value="{{exerciseOne}}">
-</template> -->

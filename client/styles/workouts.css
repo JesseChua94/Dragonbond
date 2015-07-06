@@ -14,12 +14,20 @@
 	margin-right: 5px;
 }
 
-
-.addWorkout {
-	margin-bottom: 5px;
+.workoutType {
+	width: 100%;
 }
 
-h3 {
+ul.pager {
+	margin-top: 50px;
+}
+
+h3.monthLabel {
+	display: inline;
+	text-align: center;
+}
+
+h3.panel-title {
 	margin-left: -3px;
 }
 
