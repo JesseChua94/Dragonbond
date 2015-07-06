@@ -20,12 +20,11 @@ if (Meteor.isServer) {
 				weight: newWeight,
 				email: newEmail,
 				phone: newPhone },
-				weights: {}
+				weights:{}
+				//weights: { {month: {current: January, week: 2, exercises:{}  }  }, 
+				//		     {month: ....}  }
 			}
 			});
-		},
-		'addWeek' : function(week) {
-			Weeks.insert({week: week});
 		},
 		'delete' : function(id) {
 			var deleteID = {};
