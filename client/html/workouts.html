@@ -8,15 +8,12 @@
 		{{#if showAlert}}
 			{{> alertWorkout}}
 		{{/if}}
-
 		<button type="button" class="addWorkout btn btn-default pull-left">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 		</button>	
-
 		<button type="button" class="deleteAll btn btn-default">
 			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 		</button>
-
 		<nav>
 		  	<ul class="pager">
 		    	<li class="prev pull-left"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
@@ -56,24 +53,8 @@
 	</div>
 </template>
 
-<template name="warningWorkout">
-		<div class="alert alert-warning alert-dismissible" role="alert">
-	 		 <button type="button" class="resetAlert close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	  		Are you sure you want to delete?
-	  		<button type="button" class="resetAlert yes" data-dismiss="alert" aria-label="Close"> Yes</button>
-	  		<button type="button" class="resetAlert no" data-dismiss="alert" aria-label="Close"> No</button>
-		</div>
-</template>
 
-<template name="singleWorkout">
-	{{#each infoGetter this.month.exercises this._id}}
-		<input id="{{id}}" class="workoutName" name="{{name}}" type="text" value="{{name}}"><input id="{{id}}" class="workoutReps" name="value" type="text" value="{{value}}">
-	{{/each}}
-</template>
 
-<template name="alertWorkout">
-	<div class="dismiss alert alert-danger alert-dismissible" role="alert">
-	  <strong>Warning!</strong> Too many weeks!
-	</div>
 
-</template>
+
+

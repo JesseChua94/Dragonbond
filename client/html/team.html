@@ -17,7 +17,7 @@
 	</div>
 
 	{{#if show}}
-		{{> warning}}
+		{{> warningMember}}
 	{{/if}}
 
 	<div class="container-fluid" id="team">
@@ -34,10 +34,10 @@
 				{{#each members}}
 
 				<tr>
-					{{> member}}
+					{{> displayMember}}
 
 <!-- 					{{#if setWeek}}
- -->				{{> weights}}
+ -->				{{> displayWeights}}
 <!-- 					{{/if}}
  -->
 					<td>
@@ -52,33 +52,4 @@
 
 		</table>
 	</div>
-</template>
-
-
-<template name="warning">
-	<div class="container">
-		<div class="alert alert-warning alert-dismissible" role="alert">
-	 		 <button type="button" class="resetAlert close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	  		Are you sure you want to delete?
-	  		<button type="button" class="resetAlert yes" data-dismiss="alert" aria-label="Close"> Yes</button>
-	  		<button type="button" class="resetAlert no" data-dismiss="alert" aria-label="Close"> No</button>
-		</div>
-	</div>
-
-</template>
-
-<template name="member">
-	{{#each infoGetter this.member.info this._id}}
-
-		<td id="{{id}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
-	{{/each}}
-</template>
-
-<template name="weights">
-	{{#each infoGetter this.member.weights.Week2 this._id}}
-
-	<td id="{{id}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
-	{{/each}}
-
-
 </template>

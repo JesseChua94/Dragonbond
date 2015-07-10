@@ -1,0 +1,8 @@
+<template name="displayWeights">
+	{{#each infoGetter this.member.weights.Week2 this._id}}
+
+	<td id="{{id}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
+	{{/each}}
+
+
+</template>

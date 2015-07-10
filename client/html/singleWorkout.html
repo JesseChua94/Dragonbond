@@ -1,0 +1,5 @@
+<template name="singleWorkout">
+	{{#each infoGetter this.month.exercises this._id}}
+		<input id="{{id}}" class="workoutName" name="{{name}}" type="text" value="{{name}}"><input id="{{id}}" class="workoutReps" name="value" type="text" value="{{value}}">
+	{{/each}}
+</template>

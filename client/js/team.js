@@ -66,8 +66,8 @@ if (Meteor.isClient) {
 			// we don't flood the server with updates (handles the event at most once 
 			// every 300ms)
 			'keyup input.data': _.throttle(function(event) {
-				value = event.target.value;
-				name = event.target.name;
+				var value = event.target.value;
+				var name = event.target.name;
 			  	Meteor.call("update", this.id, value, name);
 			}, 300)
 		});
