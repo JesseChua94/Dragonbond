@@ -39,7 +39,7 @@ if (Meteor.isClient) {
 			};
 		}, 300),
 		//testing function
-		'click .workoutName, click .workoutWeek, click .workoutReps, click .workoutType' : function() {
+		'click .workoutType, click .workoutWeek, click .workoutReps, click .workoutName' : function() {
 			console.log(this.id);
 			console.log(this._id);
 		},
@@ -50,9 +50,11 @@ if (Meteor.isClient) {
 		'click .trashWorkout' : function() {
 		  		Session.set('warning', true);
 		  		Session.set('deleteID', this._id);
+		  		Session.set('weekNumber', this.month.week);
+		  		Session.set('month', this.month.current);
 		},
 		//this is repeated in team.js. Should change later to one js file.
-		'keydown .workoutName, keydown .workoutReps, keydown .workoutWeek': function(event) {
+		'keydown .workoutType, keydown .workoutReps, keydown .workoutWeek, keydown .workoutName': function(event) {
 			    // ESC or ENTER
 			    if (event.which === 27 || event.which === 13) {
 			      event.preventDefault();
@@ -75,14 +77,12 @@ if (Meteor.isClient) {
 
 			};
 		},
-		//this is also repeated
-		'keyup .workoutName, keyup .workoutReps, keyup .workoutWeek': _.throttle(function(event) {
+		'keyup .workoutType, keyup .workoutWeek': _.throttle(function(event) {
 				value = event.target.value;
 				name = event.target.name;
 			  	Meteor.call("updateWorkout", this._id, value, name);
 			}, 300)
 		});
-
 
 	Template.warningWorkout.events({
 		'click .resetAlert' : function() {
@@ -91,7 +91,9 @@ if (Meteor.isClient) {
 		},
 		'click .yes' : function() {
 			var deleteID = Session.get('deleteID');
-			Meteor.call("deleteWorkout", deleteID);
+			var weekNumber = Session.get('weekNumber');
+			var month = Session.get('month');
+			Meteor.call("deleteWorkout", deleteID, weekNumber, month);
 		}
 	});
 
