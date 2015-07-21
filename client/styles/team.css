@@ -10,6 +10,16 @@ input.data {
     width: 100%;
   }
 
+nav#week .pagination{
+	display: inline;
+	padding-bottom: 0;
+}
+
 ul.week li {
-	cursor: default;
+	margin-left: 5px;
+	border-bottom: 1px solid #D2D7D3;
+	width: 85%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	cursor: pointer;
 }

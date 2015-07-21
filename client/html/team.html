@@ -1,22 +1,48 @@
 <template name="team">
 
 	<div class="container-fluid">
-		<div class="btn-group">
+
+		{{#if show}}
+			{{> warningMember}}
+		{{/if}}
+		
+		<button  type="button" class="add btn btn-default">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+
+		<div class="drop btn-group">
 		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		    {{setWeek}} <span class="caret"></span>
 		  </button>
-		  <ul class="dropdown-menu week">
+		  <ul class="dropdown-menu month">
+		  	<li class='selected'><a href="#">Member Info</a> </li>
+		  	{{#each months}}
+		  		<li class='selected'> <a href="#">{{this}}</a> </li>
+		  	{{/each}}
 
 		  </ul>
 		</div>
-		<button type="button" class="add btn btn-default">
-			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-		</button>
+
+		<nav id='week'>
+		  <ul class="pagination">
+		    <li>
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    {{#each weeks}}
+		    	<li class='selected'><a href="#">{{this}}</a></li>
+		    {{/each}}
+		    <li>
+		      <a href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
 	</div>
 
-	{{#if show}}
-		{{> warningMember}}
-	{{/if}}
+	
 
 	<div class="container-fluid" id="team">
 		<table  id="team" class="table table-bordered table-hover table-striped ">

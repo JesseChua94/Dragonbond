@@ -35,15 +35,34 @@ if (Meteor.isClient) {
 			'keyup input.data': _.throttle(function(event) {
 				var value = event.target.value;
 				var name = event.target.name;
-			  	Meteor.call("update", this.id, value, name);
+				var selectedMonth = Session.get('selectedMonth');
+				var maybeWeek = Session.get('selectedWeek');
+			  	Meteor.call("update", this.id, value, name, selectedMonth, maybeWeek);
 			}, 300)
 		});
 	//Allows to dynamically add attributes to the table
 	Handlebars.registerHelper('infoGetter', function(mObj, objID) {
-		result =[];
-		for (var key in mObj) {
-			result.push({id: objID, name: key, value: mObj[key]});
+		var result = [];
+		var selectedMonth = Session.get('selectedMonth');
+		if (selectedMonth == 'Member Info' || selectedMonth == null){
+			for (var key in mObj.info) {
+				result.push({id: objID, name: key, value: mObj.info[key]});
+			};
+			return result;
+		} else {
+			var maybeWeek = Session.get('selectedWeek');
+			maybeWeek ? "" : maybeWeek = '1';
+			maybeWeek = "Week " + maybeWeek;
+			var monthWeek = mObj.weights[selectedMonth][maybeWeek];
+			var mName = mObj.info.name;
+			result.push({id: objID, name: 'name', value: mName});	
+			for (var key in monthWeek) {
+				var val = monthWeek[key].split('-');
+				if (val[0] == "") {break} else {
+					result.push({id: objID, name: key, value: val[1]})
+				};
+			}
+			return result;
 		};
-		return result;
 	});
 };

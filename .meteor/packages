@@ -8,3 +8,4 @@ meteor-platform
 iron:router
 mrt:bootstrap-3
 workman:meteor-editable
+reactive-var

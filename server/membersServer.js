@@ -9,9 +9,8 @@ if (Meteor.isServer) {
 		return Months.find({});
 	});
 
-
 	Meteor.methods({
-		'insertMember' : function(newName, newWeight, newEmail, newPhone) {
+		'insertMember' : function(newName, newWeight, newEmail, newPhone, newAttendance) {
 			//Add every month to new member
 			var addMonths = {};
 			var months = Months.findOne().months;
@@ -23,9 +22,10 @@ if (Meteor.isServer) {
 			Members.insert({member: { 
 				info: { 
 					name: newName,
+					attendance : newAttendance,
 					weight: newWeight,
 					email: newEmail,
-					phone: newPhone 
+					phone: newPhone
 				},
 				weights: addMonths
 				//weights: {January: {week 1: {e1: push ups-3x10, e2: sit ups-3x10, e3: "", e4: "", e5: ""}, week2: {}, week3: {} }, 
@@ -55,9 +55,17 @@ if (Meteor.isServer) {
 			deleteID['_id'] = id;
 			Members.remove(deleteID);
 		},
-		'update' : function(id, value, key) {
+		'update' : function(id, value, key, month, maybeWeek) {
 			var update = {};
-			update['member.info.' + key] = value;
+			if (month == null || month == 'Member Info') {
+				update['member.info.' + key] = value;
+			} else {
+				maybeWeek ? "" : maybeWeek = '1';
+				maybeWeek = "Week " + maybeWeek;
+				var name = Members.findOne({_id: id}).member.weights[month][maybeWeek][key];
+				update['member.weights.' + month + '.' + maybeWeek
+					+ '.' + key] = name.split('-')[0] + '-' + value;
+			}
 			Members.update(id, {$set: update});
 		},
 		//this is a testing method
@@ -71,50 +79,6 @@ if (Meteor.isServer) {
 			Members.remove({});
 			Workouts.remove({});
 		},
-
-		'insertWorkout' : function(newWeek, currentMonth) {
-			Workouts.insert({ month: {
-				week: newWeek,  //should be just a number
-				current: currentMonth, //this is the month NAME
-				exercises: {e1: "", e2: "", e3: "", e4: "", e5: ""},
-				// e1: 'push ups-3x10'
-				title: "",
-				notes: ""}
-			});
-		},
-		'updateWorkout' : function(id, value, key) {
-			var update = {};
-			update['month.' + key] = value;
-			Workouts.update(id, {$set: update});
-		},
-		//currentMonth - e.g. September, February
-		//exercise - key for exercises e.g. e1, e2, e3
-		//eName - name of exercise
-		// eReps - number of reps
-		// week - full week
-		'updateWorkoutExercises' : function(id, currentMonth, exercise, eName, eReps, week) {
-			var wUpdate = {};
-			var nameAndReps = eName + "-" + eReps;
-			wUpdate['month.exercises.' + exercise] = nameAndReps;
-			Workouts.update({_id: id} , {$set: wUpdate});
-
-			var mUpdate = {};
-			mUpdate['member.weights.' + currentMonth + '.' + week + '.' + exercise] = nameAndReps;
-			Members.update({}, {$set: mUpdate}, {upsert: true, multi: true});
-		},
-		'deleteWorkout' : function(id, weekNumber, month) {
-			var deleteID = {};
-			deleteID['_id'] = id;
-			Workouts.remove(deleteID);
-			var week = 'Week ' + weekNumber;
-
-			//working with limited testing. Not sure if need to put in try/catch
-			var deleteWeek = {};
-			var key = 'member.weights.' + month + '.' + week;
-			deleteWeek[key] = 1;
-			console.log(key);
-			Members.update({}, {$unset: deleteWeek}, {multi: true});
-		},
 		'nextMonth' : function(next) {
 			Months.update({}, {$set: {index: next}});
 		},
@@ -123,4 +87,3 @@ if (Meteor.isServer) {
 		}
 	});
 }
-
