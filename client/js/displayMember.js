@@ -1,9 +1,10 @@
 if (Meteor.isClient) {
+	var timeout;
 	Meteor.subscribe('members');
 
 	Template.displayMember.helpers({
 			'members' : function() {
-				return Members.find({member: {$exists: true}}).fetch();
+				return Members.find({member: {$exists: true}}).fetch().sort({'_id': -1});
 			}
 		});
 
@@ -31,14 +32,22 @@ if (Meteor.isClient) {
 		  	},
 			// update the text of the item on keypress but throttle the event to ensure
 			// we don't flood the server with updates (handles the event at most once 
-			// every 300ms)
-			'keyup input.data': _.throttle(function(event) {
-				var value = event.target.value;
-				var name = event.target.name;
-				var selectedMonth = Session.get('selectedMonth');
-				var maybeWeek = Session.get('selectedWeek');
-			  	Meteor.call("update", this.id, value, name, selectedMonth, maybeWeek);
-			}, 300)
+			// every 600ms)
+			'keypress input.data': function(event) {
+				var id = this.id;
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				}
+				timeout = setTimeout(function() {
+					var value = event.target.value;
+					var name = event.target.name;
+					var selectedMonth = Session.get('selectedMonth');
+					var maybeWeek = Session.get('selectedWeek');
+				  	Meteor.call("update", id, value, name, selectedMonth, maybeWeek);
+				  	clearTimeout(timeout);
+				}, 600);
+			}	
 		});
 	//Allows to dynamically add attributes to the table
 	Handlebars.registerHelper('infoGetter', function(mObj, objID) {

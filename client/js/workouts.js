@@ -1,5 +1,5 @@
-
 if (Meteor.isClient) {
+	var timeout;
 	Meteor.subscribe("workouts");
 	Meteor.subscribe("months");
 
@@ -23,12 +23,10 @@ if (Meteor.isClient) {
 
 	Template.workouts.events({
 		'click .addWorkout' : _.throttle(function(event) {
-			//this line is repeated a few times
 			var index = parseInt(Months.findOne({}).index);
 			var currentMonth = Months.findOne({}).months[index];
 			var count = Workouts.findOne({'month.current': currentMonth}, {sort:{month: {week: -1}}});
 			if (count == null) {
-				console.log('wtf?');
 				count = 1;
 				Meteor.call("insertWorkout", count, currentMonth);
 			} else if (count.month.week > 4) {
@@ -37,7 +35,7 @@ if (Meteor.isClient) {
 				count = count.month.week + 1;
 				Meteor.call("insertWorkout", count, currentMonth);
 			};
-		}, 300),
+		}, 400),
 		//testing function
 		'click .workoutType, click .workoutWeek, click .workoutReps, click .workoutName' : function() {
 			console.log(this.id);
@@ -77,12 +75,19 @@ if (Meteor.isClient) {
 
 			};
 		},
-		'keyup .workoutType, keyup .workoutWeek': _.throttle(function(event) {
+		'keypress .workoutType, keypress .workoutWeek': function(event) {
+			var id = this._id;
+			if (timeout) {
+				clearTimeout(timeout);
+				timeout = null;
+			}
+			timeout = setTimeout(function() {
 				value = event.target.value;
 				name = event.target.name;
-			  	Meteor.call("updateWorkout", this._id, value, name);
-			}, 300)
-		});
+			  	Meteor.call("updateWorkout", id, value, name);
+			}, 600);
+		}
+	});
 
 	Template.warningWorkout.events({
 		'click .resetAlert' : function() {

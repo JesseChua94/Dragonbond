@@ -1,26 +1,34 @@
 if (Meteor.isClient) {
+	var timeout;
 	Meteor.subscribe('workouts');
 
 	Template.singleWorkout.events({
 		//have to change this to add in format of 
 		// e1: 'push ups-3x10'
 		// week- week number
-		'keyup .workoutName, keyup .workoutReps': _.throttle(function(event) {
-			var exercise = event.target.name;
-			var week = 'Week ' + $('[id=' + this.id + ']').attr('mWeek');
-			console.log('this is mWeek ' + week);
-			var eArray = [];
-			$('input[name='+ exercise + '][id='+ this.id +']').each(function() {
-				eArray.push($(this).val());
-			});
-			var eName = eArray[0];
-			var eReps = eArray[1];
-			if (/[0-9a-z]/i.test(eName) && /[0-9a-z]/i.test(eReps)){
-				var index = parseInt(Months.findOne({}).index);
-				var currentMonth = Months.findOne({}).months[index];
-		  		Meteor.call("updateWorkoutExercises", this.id, currentMonth, exercise, eName, eReps, week);
-		  	}
-		}, 300)
+		'keypress .workoutName, keypress .workoutReps': function(event) {
+			var id = this.id;
+			if (timeout) {
+				clearTimeout(timeout);
+				timeout = null;
+			};
+			timeout = setTimeout(function() {
+				var exercise = event.target.name;
+				var week = 'Week ' + $('[id=' + id + ']').attr('mWeek');
+				console.log('this is mWeek ' + week);
+				var eArray = [];
+				$('input[name='+ exercise + '][id='+ id +']').each(function() {
+					eArray.push($(this).val());
+				});
+				var eName = eArray[0];
+				var eReps = eArray[1];
+				if (/[0-9a-z]/i.test(eName) && /[0-9a-z]/i.test(eReps)){
+					var index = parseInt(Months.findOne({}).index);
+					var currentMonth = Months.findOne({}).months[index];
+			  		Meteor.call("updateWorkoutExercises", id, currentMonth, exercise, eName, eReps, week);
+			  	}
+			}, 600);
+		}
 	});
 	Handlebars.registerHelper('exerciseGetter', function(mObj, objID, week) {
 		result =[];
