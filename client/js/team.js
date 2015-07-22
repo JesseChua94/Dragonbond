@@ -52,7 +52,7 @@ if (Meteor.isClient) {
 		}
 			
 	});
-
+	
 	Template.team.events({
 		'click .add' : function() {
 			Meteor.call('insertMember', "", "", "", "", "");

@@ -76,8 +76,8 @@ if (Meteor.isServer) {
 		},
 		//this is testing method
 		'deleteAll' : function() {
-			Members.remove({});
-			Workouts.remove({});
+			//Members.remove({});
+			//Workouts.remove({});
 		},
 		'nextMonth' : function(next) {
 			Months.update({}, {$set: {index: next}});
