@@ -13,7 +13,8 @@ if (Meteor.isClient) {
 			var count = Workouts.find({'month.current': selectedMonth}).fetch();
 			var weeks = [];
 			for(i = 0; i < count.length; i++){
-				weeks.push(i + 1);
+				var weekNum = count[i].month.week;
+				weeks.push(weekNum);
 			}
 			console.log(weeks);
 			return weeks;
