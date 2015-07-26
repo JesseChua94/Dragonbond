@@ -4,10 +4,12 @@ if (Meteor.isClient) {
 	Meteor.subscribe("months");
 
 	Template.workouts.helpers({
+		//sort not working for some reason
 		'workout' : function() {
 			var index = parseInt(Months.findOne({}).index);
 			var currentMonth = Months.findOne({}).months[index];
-			return Workouts.find({'month.current': currentMonth}).fetch();
+			return Workouts.find({'month.current': currentMonth}, 
+				{sort: {'month.week': 1}}).fetch();
 		},
 		'show' : function() {
 			return Session.get('warning');

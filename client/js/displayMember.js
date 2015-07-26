@@ -54,8 +54,10 @@ if (Meteor.isClient) {
 		var result = [];
 		var selectedMonth = Session.get('selectedMonth');
 		if (selectedMonth == 'Member Info' || selectedMonth == null){
-			for (var key in mObj.info) {
-				result.push({id: objID, name: key, value: mObj.info[key]});
+			for (var obj in mObj.info) {
+				for (var key in mObj.info[obj]){
+					result.push({id: objID, name: key, value: mObj.info[obj][key]});
+				};
 			};
 			return result;
 		} else {

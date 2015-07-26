@@ -20,13 +20,13 @@ if (Meteor.isServer) {
 			};
 
 			Members.insert({member: { 
-				info: { 
-					name: newName,
-					attendance : newAttendance,
-					weight: newWeight,
-					email: newEmail,
-					phone: newPhone
-				},
+				info: [
+					{name: newName} ,
+					{attendance: newAttendance} ,
+					{weight: newWeight} ,
+					{email: newEmail},
+					{phone: newPhone} ]
+				,
 				weights: addMonths
 				//weights: {January: {week 1: {e1: push ups-3x10, e2: sit ups-3x10, e3: "", e4: "", e5: ""}, week2: {}, week3: {} }, 
 				//			 February: {week 1: {pushups: 10, situps: 5}, week2: {}, week3: {}} , 
@@ -57,8 +57,17 @@ if (Meteor.isServer) {
 		},
 		'update' : function(id, value, key, month, maybeWeek) {
 			var update = {};
+			//positional operator seems to be not working here
 			if (month == null || month == 'Member Info') {
-				update['member.info.' + key] = value;
+				var array = Members.findOne(id).member.info;
+				for (var obj in array){
+					for(var mKey in array[obj]){
+						if (mKey == key){
+							array[obj][key] = value;
+						}
+					}
+				}
+				update['member.info'] = array;
 			} else {
 				maybeWeek ? "" : maybeWeek = '1';
 				maybeWeek = "Week " + maybeWeek;
@@ -66,7 +75,7 @@ if (Meteor.isServer) {
 				update['member.weights.' + month + '.' + maybeWeek
 					+ '.' + key] = name.split('-')[0] + '-' + value;
 			}
-			Members.update(id, {$set: update});
+			Members.update({_id: id}, {$set: update});
 		},
 		//this is a testing method
 		'getObject' : function(id) {

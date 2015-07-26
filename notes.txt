@@ -1,11 +1,2 @@
-
-
-Home page used for displaying the current week's layout and maybe schedule?
-
-Also think about adding a schedule for trainers
-	-When they can make it
-	-Pressing for attendance or not
-
-
-BUGS
--inputing new workouts leave old workouts in the members database. Need to delete those
+bugs
+-fix ordering of attributes. Maybe weeks as well.

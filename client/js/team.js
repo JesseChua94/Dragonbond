@@ -19,15 +19,16 @@ if (Meteor.isClient) {
 			console.log(weeks);
 			return weeks;
 		},
-		//Another way to do without hardcoding?
 		'headers' : function () {
 			var selectedMonth = Session.get('selectedMonth');
 			var headings = [];
 			var array = [];
 			if (selectedMonth == null || selectedMonth == 'Member Info'){
 				headings = Members.findOne().member.info;
-				for (var key in headings){
-					array.push(key);
+				for (var obj in headings){
+					for (var key in headings[obj]) {
+						array.push(key);
+					};
 				};
 			} else {
 				var maybeWeek = Session.get('selectedWeek');
