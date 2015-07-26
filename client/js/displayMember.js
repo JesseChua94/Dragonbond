@@ -2,12 +2,6 @@ if (Meteor.isClient) {
 	var timeout;
 	Meteor.subscribe('members');
 
-	Template.displayMember.helpers({
-			'members' : function() {
-				return Members.find({member: {$exists: true}}).fetch().sort({'_id': -1});
-			}
-		});
-
 	Template.displayMember.events({
 			'click #check' : function() {
 				Meteor.call('check');
@@ -65,7 +59,7 @@ if (Meteor.isClient) {
 			maybeWeek ? "" : maybeWeek = '1';
 			maybeWeek = "Week " + maybeWeek;
 			var monthWeek = mObj.weights[selectedMonth][maybeWeek];
-			var mName = mObj.info.name;
+			var mName = mObj.info[0].name;
 			result.push({id: objID, name: 'name', value: mName});	
 			for (var key in monthWeek) {
 				var val = monthWeek[key].split('-');

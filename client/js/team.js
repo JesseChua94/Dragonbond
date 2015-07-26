@@ -3,14 +3,16 @@ if (Meteor.isClient) {
 
 	Template.team.helpers({
 		'members' : function() {
-			return Members.find({member: {$exists: true}}).fetch();
+			return Members.find({member: {$exists: true}}, 
+				{sort: {_id: 1}}).fetch();
 		},
 		'months' : function() {
 			return Months.findOne().months;
 		},
 		'weeks' : function() {
 			var selectedMonth = Session.get('selectedMonth');
-			var count = Workouts.find({'month.current': selectedMonth}).fetch();
+			var count = Workouts.find({'month.current': selectedMonth}, 
+				{sort:{'month.week': 1}}).fetch();
 			var weeks = [];
 			for(i = 0; i < count.length; i++){
 				var weekNum = count[i].month.week;
