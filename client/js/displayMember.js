@@ -15,14 +15,11 @@ if (Meteor.isClient) {
 		  	},
 		  	//this is a testing method
 		  	'click td' : function() {
-		  		console.log(this._id);
-		  		console.log(this.id);
 		  		this.id == null? Meteor.call('getObject', this._id) : Meteor.call('getObject', this.id);
 		  	},
 		    //working on the deletion of information
 		  	'click .week li' : function() {
 		  		Session.set('activeWeek', this._id);
-		  		console.log(this._id);
 		  	},
 			// update the text of the item on keypress but throttle the event to ensure
 			// we don't flood the server with updates (handles the event at most once 

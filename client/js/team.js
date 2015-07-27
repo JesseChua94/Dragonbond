@@ -4,7 +4,7 @@ if (Meteor.isClient) {
 	Template.team.helpers({
 		'members' : function() {
 			return Members.find({member: {$exists: true}}, 
-				{sort: {_id: 1}}).fetch();
+				{sort: {'member.info[0].name': 1}}).fetch();
 		},
 		'months' : function() {
 			return Months.findOne().months;
@@ -45,7 +45,6 @@ if (Meteor.isClient) {
 						array.push(eName);
 					}
 				};
-				console.log(array);
 			}
 			return _.map(array, function(value) {
 					return {heading: value}
@@ -53,8 +52,14 @@ if (Meteor.isClient) {
 		},
 		'show' : function() {
 			return Session.get('warning');
+		},
+		'attendedButton' : function() {
+			var maybeInfo = Session.get('selectedMonth');
+			return maybeInfo === 'Member Info' ? false : true;
+		},
+		'clickedAttended' : function() {
+			return Session.get('clickedAttended');
 		}
-			
 	});
 	
 	Template.team.events({
@@ -64,14 +69,21 @@ if (Meteor.isClient) {
 		'click .trash' : function() {
 	  		Session.set('warning', true);
 	  		Session.set('deleteID', this._id);
-	  		console.log('clicked');
 	  	},
 	  	'click .month li.selected' : function(event) {
 	  		Session.set('selectedMonth', event.target.text);
 	  	},
 	  	'click #week li.selected' : function(event) {
 	  		Session.set('selectedWeek', event.target.text);
-	  	}
+	  	},
+	  	'click .attend' : function() {
+			Session.set('clickedAttended', false);
+			console.log(this._id);
+		},
+		'click .notAttend' : function() {
+			Session.set('clickedAttended', true);
+			console.log(this._id);
+		}
 	});
 };
 

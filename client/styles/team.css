@@ -23,3 +23,6 @@ ul.month li {
 	margin-bottom: 5px;
 	cursor: pointer;
 }
+#buttonCells {
+	width: 100px;
+}
