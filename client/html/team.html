@@ -1,6 +1,6 @@
 <template name="team">
 
-	<div class="container-fluid">
+	<div id="nav" class="container-fluid">
 
 		{{#if show}}
 			{{> warningMember}}
@@ -12,7 +12,7 @@
 
 		<div class="drop btn-group">
 		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    {{setWeek}} <span class="caret"></span>
+		    {{setDrop}} <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu month">
 		  	<li class='selected'><a href="#">Member Info</a> </li>
@@ -23,23 +23,25 @@
 		  </ul>
 		</div>
 
-		<nav id='week'>
-		  <ul class="pagination">
-		    <li>
-		      <a href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    {{#each weeks}}
-		    	<li class='selected'><a href="#">{{this}}</a></li>
-		    {{/each}}
-		    <li>
-		      <a href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav>
+		{{#if monthSelected}}
+			<nav id='week'>
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    {{#each weeks}}
+			    	<li class='selected'><a href="#">{{this}}</a></li>
+			    {{/each}}
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		{{/if}}
 	</div>
 
 	
@@ -61,11 +63,11 @@
 					{{> displayMember}}
 					<td id="buttonCells">
 						{{#if clickedAttended}}
-							<button type="button" class="attend btn btn-default" aria-label="Left Align">
+							<button id="{{this._id}}" type="button" class="attend btn btn-default" aria-label="Left Align">
 								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 							</button>
 						{{else}}
-							<button type="button" class="notAttend btn btn-default" aria-label="Left Align">
+							<button id="{{this._id}}" type="button" class="notAttend btn btn-default" aria-label="Left Align">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							</button>
 						{{/if}}

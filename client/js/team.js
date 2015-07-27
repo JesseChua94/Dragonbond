@@ -59,6 +59,16 @@ if (Meteor.isClient) {
 		},
 		'clickedAttended' : function() {
 			return Session.get('clickedAttended');
+		},
+		'setDrop' : function() {
+			return Session.get('selectedMonth');
+		},
+		'monthSelected' : function() {
+			var maybeMonth = Session.get('selectedMonth');
+			if (maybeMonth == 'Member Info' || maybeMonth == null){
+				return false;
+			} else { return true; 
+			};
 		}
 	});
 	
@@ -78,11 +88,11 @@ if (Meteor.isClient) {
 	  	},
 	  	'click .attend' : function() {
 			Session.set('clickedAttended', false);
-			console.log(this._id);
+			
 		},
 		'click .notAttend' : function() {
 			Session.set('clickedAttended', true);
-			console.log(this._id);
+			console.log(this.id);
 		}
 	});
 };

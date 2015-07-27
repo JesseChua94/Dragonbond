@@ -26,3 +26,9 @@ ul.month li {
 #buttonCells {
 	width: 100px;
 }
+div.drop, button.add {
+	margin-bottom: 5px;
+}
+div#nav {
+	margin-bottom: 5px;
+}
