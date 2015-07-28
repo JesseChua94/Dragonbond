@@ -35,7 +35,6 @@ if (Meteor.isClient) {
 		for (var key in mObj) {
 			var valueArray = mObj[key].split('-');
 			var eName = valueArray[0];
-			console.log('this is the week number' + week);
 			if (valueArray.length == 1) {
 				var eReps = "";
 			} else if (valueArray.length == 2) {

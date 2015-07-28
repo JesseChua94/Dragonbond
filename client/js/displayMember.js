@@ -66,9 +66,11 @@ if (Meteor.isClient) {
 			return result;
 		} else {
 			var maybeWeek = Session.get('selectedWeek');
-			maybeWeek ? "" : maybeWeek = '1';
+			if (!maybeWeek){ 
+				Session.set('selectedWeek', 1);
+				maybeWeek = 1; };
 			maybeWeek = "Week " + maybeWeek;
-			var monthWeek = mObj.weights[selectedMonth][maybeWeek];
+			var monthWeek = mObj.weights[selectedMonth][maybeWeek].exercises;
 			var mName = mObj.info[0].name;
 			result.push({mID: objID, name: 'name', value: mName});	
 			for (var key in monthWeek) {

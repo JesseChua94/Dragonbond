@@ -35,7 +35,7 @@ if (Meteor.isClient) {
 				var maybeWeek = Session.get('selectedWeek');
 				maybeWeek ? "" : maybeWeek = '1';
 				maybeWeek = "Week " + maybeWeek;
-				headings = Members.findOne().member.weights[selectedMonth][maybeWeek];
+				headings = Members.findOne().member.weights[selectedMonth][maybeWeek].exercises;
 				array.push('name');
 				for (var key in headings) {
 
@@ -74,10 +74,22 @@ if (Meteor.isClient) {
 	  	},
 	  	'click .month li.selected' : function(event) {
 	  		Session.set('selectedMonth', event.target.text);
-	  		Session.set('selectedWeek', null);
+	  		console.log(Session.get('selectedWeek'));
 	  	},
 	  	'click #week li.selected' : function(event) {
 	  		Session.set('selectedWeek', event.target.text);
+	  	},
+	  	'click #nextWeek' : function() {
+			var currentMonth = Session.get('selectedMonth');
+			var count = Workouts.findOne({'month.current': currentMonth}, {sort:{month: {week: -1}}});
+	  		var currentWeek = Session.get('selectedWeek');
+	  		currentWeek < count.month.week ? Session.set('selectedWeek', parseInt(currentWeek) + 1) : "";
+	  	},
+	  	'click #prevWeek' : function() {
+	  		var currentMonth = Session.get('selectedMonth');
+			var count = Workouts.findOne({'month.current': currentMonth}, {sort:{month: {week: -1}}});
+	  		var currentWeek = Session.get('selectedWeek');
+	  		currentWeek > 1 ? Session.set('selectedWeek', parseInt(currentWeek) - 1) : "";
 	  	}
 	});
 };

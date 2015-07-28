@@ -9,6 +9,12 @@ if (Meteor.isServer) {
 				title: "",
 				notes: ""}
 			});
+
+			var week = "Week " + newWeek;
+			//insert attendance to member here
+			var attendance = {};
+			attendance['member.weights.' + currentMonth + '.' + week + '.attendance'] = 0;
+			Members.update({}, {$set: attendance}, {upsert: true, multi: true});
 		},
 		'updateWorkout' : function(id, value, key) {
 			var update = {};
@@ -27,7 +33,7 @@ if (Meteor.isServer) {
 			Workouts.update({_id: id} , {$set: wUpdate});
 
 			var mUpdate = {};
-			mUpdate['member.weights.' + currentMonth + '.' + week + '.' + exercise] = eName + "-";
+			mUpdate['member.weights.' + currentMonth + '.' + week + '.exercises.' + exercise] = eName + "-";
 			Members.update({}, {$set: mUpdate}, {upsert: true, multi: true});
 		},
 		'deleteWorkout' : function(id, weekNumber, month) {

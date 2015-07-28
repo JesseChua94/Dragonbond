@@ -40,14 +40,17 @@ if (Meteor.isServer) {
 			});
 				
 			var workouts = Workouts.find({}).fetch();
-			for (i = 0; i < workouts.length; i++) {
+			for (i = 0; i < workouts.length; i++) { 
 				workouts[i]
 				var currentMonth = workouts[i].month.current;
 				var currentWeek = 'Week ' + workouts[i].month.week;
 				var currentExercises = workouts[i].month.exercises;
 				var mUpdate = {};
-				mUpdate['member.weights.' + currentMonth + '.' + currentWeek] = currentExercises;
+				mUpdate['member.weights.' + currentMonth + '.' + currentWeek + '.exercises'] = currentExercises;
 				Members.update({_id: memberID}, {$set: mUpdate}, {upsert: true});
+				var attendance = {};
+				attendance['member.weights.' + currentMonth + '.' + currentWeek + '.attendance'] = 0;
+				Members.update({_id: memberID}, {$set: attendance}, {upsert: true});
 			};
 		},
 		'delete' : function(id) {
@@ -71,9 +74,9 @@ if (Meteor.isServer) {
 			} else {
 				maybeWeek ? "" : maybeWeek = '1';
 				maybeWeek = "Week " + maybeWeek;
-				var name = Members.findOne({_id: id}).member.weights[month][maybeWeek][key];
+				var name = Members.findOne({_id: id}).member.weights[month][maybeWeek].exercises[key];
 				update['member.weights.' + month + '.' + maybeWeek
-					+ '.' + key] = name.split('-')[0] + '-' + value;
+					+ '.exercises.' + key] = name.split('-')[0] + '-' + value;
 			}
 			Members.update({_id: id}, {$set: update});
 		},
