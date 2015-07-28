@@ -1,9 +1,0 @@
-button.attend, button.trash {
-	display: inline;
-}
-button.attend {
-	color: green;
-}
-button.notAttend {
-	color: red;
-}

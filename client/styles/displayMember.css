@@ -1,0 +1,9 @@
+div.attendance, button.trash {
+	display: inline;
+}
+button.attend {
+	color: red;
+}
+button.notAttend {
+	color: green;
+}

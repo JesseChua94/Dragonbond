@@ -18,7 +18,6 @@ if (Meteor.isClient) {
 				var weekNum = count[i].month.week;
 				weeks.push(weekNum);
 			}
-			console.log(weeks);
 			return weeks;
 		},
 		'headers' : function () {
@@ -53,13 +52,6 @@ if (Meteor.isClient) {
 		'show' : function() {
 			return Session.get('warning');
 		},
-		'attendedButton' : function() {
-			var maybeInfo = Session.get('selectedMonth');
-			return maybeInfo === 'Member Info' ? false : true;
-		},
-		'clickedAttended' : function() {
-			return Session.get('clickedAttended');
-		},
 		'setDrop' : function() {
 			return Session.get('selectedMonth');
 		},
@@ -69,7 +61,7 @@ if (Meteor.isClient) {
 				return false;
 			} else { return true; 
 			};
-		}
+		},
 	});
 	
 	Template.team.events({
@@ -82,18 +74,11 @@ if (Meteor.isClient) {
 	  	},
 	  	'click .month li.selected' : function(event) {
 	  		Session.set('selectedMonth', event.target.text);
+	  		Session.set('selectedWeek', null);
 	  	},
 	  	'click #week li.selected' : function(event) {
 	  		Session.set('selectedWeek', event.target.text);
-	  	},
-	  	'click .attend' : function() {
-			Session.set('clickedAttended', false);
-			
-		},
-		'click .notAttend' : function() {
-			Session.set('clickedAttended', true);
-			console.log(this.id);
-		}
+	  	}
 	});
 };
 

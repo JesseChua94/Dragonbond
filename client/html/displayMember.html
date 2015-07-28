@@ -1,6 +1,21 @@
 <template name="displayMember">
 	{{#each infoGetter this.member this._id}}
 
-		<td id="{{id}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
+		<td mID="{{mID}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
 	{{/each}}
+
+	<td id="buttonCells">					
+		{{#if weekSelected}}
+			<div class="attendance" id="{{this._id}}">
+				<button type="button" mID="{{this._id}}" class="attend btn btn-default" aria-label="Left Align">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</button>
+			</div>
+		{{/if}}
+		<button type="button" class="trash btn btn-default" aria-label="Left Align">
+			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		</button>
+	</td>
+
+
 </template>

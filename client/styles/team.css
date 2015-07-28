@@ -23,7 +23,7 @@ ul.month li {
 	margin-bottom: 5px;
 	cursor: pointer;
 }
-#buttonCells {
+#buttonCells, #blank {
 	width: 100px;
 }
 div.drop, button.add {
@@ -32,3 +32,5 @@ div.drop, button.add {
 div#nav {
 	margin-bottom: 5px;
 }
+
+

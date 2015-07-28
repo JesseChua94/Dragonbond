@@ -37,7 +37,7 @@ if (Meteor.isClient) {
 				count = count.month.week + 1;
 				Meteor.call("insertWorkout", count, currentMonth);
 			};
-		}, 400),
+		}, 200),
 		//testing function
 		'click .workoutType, click .workoutWeek, click .workoutReps, click .workoutName' : function() {
 			console.log(this.id);
