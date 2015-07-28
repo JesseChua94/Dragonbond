@@ -47,10 +47,16 @@ if (Meteor.isClient) {
 			'click .attend' : function() {
 				Session.set('clickedAttended', true);
 				changeAttend(this._id);
+				var currentWeek = 'Week ' + Session.get('selectedWeek');
+				var currentMonth = Session.get('selectedMonth');
+				Meteor.call('changeAttendance', this._id, 1, currentMonth, currentWeek);
 			},
 			'click .notAttend' : function() {
 				Session.set('clickedAttended', false);
 				changeNotAttend(this._id);
+				var currentWeek = 'Week ' + Session.get('selectedWeek');
+				var currentMonth = Session.get('selectedMonth');
+				Meteor.call('changeAttendance', this._id, 0, currentMonth, currentWeek);
 			}
 		});
 	//Allows to dynamically add attributes to the table

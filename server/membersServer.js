@@ -96,6 +96,13 @@ if (Meteor.isServer) {
 		},
 		'previousMonth' : function(previous) {
 			Months.update({}, {$set: {index: previous}});
+		},
+		'changeAttendance' : function(id, changeAttend, currentMonth, currentWeek) {
+			var update = {};
+			update['member.weights.' + currentMonth + '.' + currentWeek + '.attendance'] = changeAttend;
+			console.log('this is the week and month :    ' + currentMonth + '   ' + currentWeek);
+			console.log('this is the attendance update:   ' + update);
+			Members.update({_id: id}, {$set: update});
 		}
 	});
 }
