@@ -75,8 +75,8 @@ if (Meteor.isClient) {
 	  	'click .month li.selected' : function(event) {
 	  		var maybeMonth = event.target.text;
 	  		Session.set('selectedMonth', maybeMonth);
-	  		maybeMonth == 'Member Info' ? Session.set('selectedWeek', false) : "";
-	  		//week is auto set to 1 on new month selected in displayMember.js
+	  		maybeMonth === 'Member Info' ? 
+	  			Session.set('selectedWeek', false) : Session.set('selectedWeek', 1);
 	  	},
 	  	'click #week li.selected' : function(event) {
 	  		Session.set('selectedWeek', event.target.text);

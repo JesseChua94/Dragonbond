@@ -69,12 +69,9 @@ if (Meteor.isClient) {
 					result.push({mID: objID, name: key, value: mObj.info[obj][key]});
 				};
 			};
-			return result;
 		} else {
 			var maybeWeek = Session.get('selectedWeek');
-			if (!maybeWeek){ 
-				Session.set('selectedWeek', 1);
-				maybeWeek = 1; };
+			console.log(Session.get('selectedWeek'));
 			maybeWeek = "Week " + maybeWeek;
 			var monthWeek = mObj.weights[selectedMonth][maybeWeek].exercises;
 			var mName = mObj.info[0].name;
@@ -85,8 +82,10 @@ if (Meteor.isClient) {
 					result.push({mID: objID, name: key, value: val[1]})
 				};
 			}
-			return result;
+			var maybeAttend = mObj.weights[selectedMonth][maybeWeek].attendance;
+			maybeAttend == 1 ? changeAttend(objID) : changeNotAttend(objID);
 		};
+		return result;
 	});
 };
 
