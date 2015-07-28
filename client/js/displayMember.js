@@ -45,8 +45,8 @@ if (Meteor.isClient) {
 				}, 600);
 			},
 			'click .attend' : function() {
-			Session.set('clickedAttended', true);
-			changeAttend(this._id);
+				Session.set('clickedAttended', true);
+				changeAttend(this._id);
 			},
 			'click .notAttend' : function() {
 				Session.set('clickedAttended', false);

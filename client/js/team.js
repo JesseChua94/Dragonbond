@@ -73,8 +73,10 @@ if (Meteor.isClient) {
 	  		Session.set('deleteID', this._id);
 	  	},
 	  	'click .month li.selected' : function(event) {
-	  		Session.set('selectedMonth', event.target.text);
-	  		console.log(Session.get('selectedWeek'));
+	  		var maybeMonth = event.target.text;
+	  		Session.set('selectedMonth', maybeMonth);
+	  		maybeMonth == 'Member Info' ? Session.set('selectedWeek', false) : "";
+	  		//week is auto set to 1 on new month selected in displayMember.js
 	  	},
 	  	'click #week li.selected' : function(event) {
 	  		Session.set('selectedWeek', event.target.text);
