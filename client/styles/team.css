@@ -24,7 +24,7 @@ ul.month li {
 	cursor: pointer;
 }
 #buttonCells, #blank {
-	width: 100px;
+	width: 110px;
 }
 div.drop, button.add {
 	margin-bottom: 5px;

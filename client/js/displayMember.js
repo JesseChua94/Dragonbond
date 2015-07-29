@@ -21,6 +21,7 @@ if (Meteor.isClient) {
 		  	},
 		  	//this is a testing method
 		  	'click td' : function() {
+		  		console.log(this.mID);
 		  		this.mID == null? Meteor.call('getObject', this._id) : Meteor.call('getObject', this.mID);
 		  	},
 		  	'click .week li' : function() {
@@ -34,7 +35,7 @@ if (Meteor.isClient) {
 				if (timeout) {
 					clearTimeout(timeout);
 					timeout = null;
-				}
+				};
 				timeout = setTimeout(function() {
 					var value = event.target.value;
 					var name = event.target.name;
@@ -45,18 +46,34 @@ if (Meteor.isClient) {
 				}, 600);
 			},
 			'click .attend' : function() {
-				Session.set('clickedAttended', true);
-				changeAttend(this._id);
-				var currentWeek = 'Week ' + Session.get('selectedWeek');
-				var currentMonth = Session.get('selectedMonth');
-				Meteor.call('changeAttendance', this._id, 1, currentMonth, currentWeek);
+				var id = this._id;
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				};
+				timeout = setTimeout(function() {
+					Session.set('clickedAttended', true);
+					changeAttend(id, 1);
+					var currentWeek = 'Week ' + Session.get('selectedWeek');
+					var currentMonth = Session.get('selectedMonth');
+					Meteor.call('changeAttendance', id, 1, currentMonth, currentWeek);
+					Meteor.call('calculateAttendance', id);
+				}, 100);
 			},
 			'click .notAttend' : function() {
-				Session.set('clickedAttended', false);
-				changeNotAttend(this._id);
-				var currentWeek = 'Week ' + Session.get('selectedWeek');
-				var currentMonth = Session.get('selectedMonth');
-				Meteor.call('changeAttendance', this._id, 0, currentMonth, currentWeek);
+				var id = this._id;
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				};
+				timeout = setTimeout(function() {
+					Session.set('clickedAttended', false);
+					changeAttend(id, 0);
+					var currentWeek = 'Week ' + Session.get('selectedWeek');
+					var currentMonth = Session.get('selectedMonth');
+					Meteor.call('changeAttendance', id, 0, currentMonth, currentWeek);
+					Meteor.call('calculateAttendance', id);
+				}, 100);
 			}
 		});
 	//Allows to dynamically add attributes to the table
@@ -83,21 +100,25 @@ if (Meteor.isClient) {
 				};
 			}
 			var maybeAttend = mObj.weights[selectedMonth][maybeWeek].attendance;
-			maybeAttend == 1 ? changeAttend(objID) : changeNotAttend(objID);
+			maybeAttend == 1 ? changeAttend(objID, 1) : changeAttend(objID, 0);
 		};
 		return result;
 	});
 };
 
-function changeAttend(id) {
+function changeAttend(id, attend) {
+	var attendClass;
+	var glyph;
+	if (attend == 1) {
+		attendClass = 'notAttend';
+		glyph = 'ok';
+	} else {
+		attendClass = 'attend';
+		glyph = 'remove'
+	};
 	document.getElementById(id).innerHTML = 
-		'<button type="button" mID="' + id + '" class="notAttend btn btn-default" aria-label="Left Align">' + 
-			'<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </button>';
-};
-
-function changeNotAttend(id) {
-	document.getElementById(id).innerHTML = 
-		'<button type="button" mID="' + id + '" class="attend btn btn-default" aria-label="Left Align">' +
-			'<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button>';
+		'<button type="button" mID="' + id + '" class="' + attendClass + 
+			' btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-' + 
+				glyph + '" aria-hidden="true"></span> </button>';
 };
 

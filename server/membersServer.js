@@ -41,13 +41,13 @@ if (Meteor.isServer) {
 				
 			var workouts = Workouts.find({}).fetch();
 			for (i = 0; i < workouts.length; i++) { 
-				workouts[i]
 				var currentMonth = workouts[i].month.current;
 				var currentWeek = 'Week ' + workouts[i].month.week;
 				var currentExercises = workouts[i].month.exercises;
 				var mUpdate = {};
 				mUpdate['member.weights.' + currentMonth + '.' + currentWeek + '.exercises'] = currentExercises;
 				Members.update({_id: memberID}, {$set: mUpdate}, {upsert: true});
+
 				var attendance = {};
 				attendance['member.weights.' + currentMonth + '.' + currentWeek + '.attendance'] = 0;
 				Members.update({_id: memberID}, {$set: attendance}, {upsert: true});
@@ -101,6 +101,23 @@ if (Meteor.isServer) {
 			var update = {};
 			update['member.weights.' + currentMonth + '.' + currentWeek + '.attendance'] = changeAttend;
 			Members.update({_id: id}, {$set: update});
+		},
+		'calculateAttendance' : function(id) {
+			var mAttended = 0;
+			var maybeAttend = Members.findOne(id).member.weights;
+			var total = parseInt(Workouts.find().fetch().length);
+			for (var month in maybeAttend) {
+				var check = maybeAttend[month];
+				for (var week in check){
+					check[week].attendance == 1 ? mAttended = mAttended + 1 : "";
+				};
+			};
+			//may not be reliable to use index to find attendance. Positional operator not working.
+			// Had to copy array to modify.
+			var final = Math.round(mAttended/total * 100);
+			var infoArray = Members.findOne(id).member.info;
+			infoArray[1].attendance = final + '%';
+			Members.update({_id: id}, {$set: {'member.info': infoArray}}); 
 		}
 	});
-}
+};
