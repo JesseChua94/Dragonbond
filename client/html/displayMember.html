@@ -4,15 +4,18 @@
 		<td mID="{{mID}}"><input name="{{name}}" class="data" type="text" value="{{value}}"></td>
 	{{/each}}
 
-	<td id="buttonCells">					
-		{{#if weekSelected}}
+	{{#if weekSelected}}
+		<td id="attendance">
 			<div class="attendance" id="{{this._id}}">
 			</div>
-		{{/if }}
-		<button type="button" class="trash btn btn-default" aria-label="Left Align">
-			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-		</button>
-	</td>
+		</td>
+	{{else}}
+		<td id="trash">
+			<button type="button" class="trash btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			</button>
+		</td>
+	{{/if }}
 
 
 </template>

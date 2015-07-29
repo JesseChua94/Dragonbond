@@ -23,8 +23,8 @@ ul.month li {
 	margin-bottom: 5px;
 	cursor: pointer;
 }
-#buttonCells, #blank {
-	width: 110px;
+td#attendance {
+	width: 150px;
 }
 div.drop, button.add {
 	margin-bottom: 5px;
