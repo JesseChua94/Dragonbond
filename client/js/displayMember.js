@@ -99,8 +99,9 @@ if (Meteor.isClient) {
 					result.push({mID: objID, name: key, value: val[1]})
 				};
 			}
-			var maybeAttend = mObj.weights[selectedMonth][maybeWeek].attendance;
-			maybeAttend == 1 ? changeAttend(objID, 1) : changeAttend(objID, 0);
+			//renders the attendance buttons
+			/*var maybeAttend = mObj.weights[selectedMonth][maybeWeek].attendance;
+			maybeAttend == 1 ? changeAttend(objID, 1) : changeAttend(objID, 0);*/
 		};
 		return result;
 	});

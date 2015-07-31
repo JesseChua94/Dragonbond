@@ -10,3 +10,4 @@ mrt:bootstrap-3
 workman:meteor-editable
 reactive-var
 dburles:factory
+momentjs:moment
