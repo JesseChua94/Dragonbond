@@ -48,6 +48,9 @@ if (Meteor.isServer) {
 			deleteWeek[key] = 1;
 			console.log(key);
 			Members.update({}, {$unset: deleteWeek}, {multi: true});
+		},
+		'updatetWorkoutDate' : function() {
+			return 
 		}
 	});
 }
